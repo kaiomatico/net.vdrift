@@ -3,13 +3,19 @@ I updated the Flatpak SDK and freeglut and added the debian >gcc7 fix to the TOR
 - https://github.com/flathub/net.sourceforge.torcs
 - https://flathub.org/apps/details/net.sourceforge.torcs
 
-# Installation Instructions
+# Installation instructions
 ```
+flatpak install flathub org.freedesktop.Platform//20.08 org.freedesktop.Sdk//20.08
 git clone --recurse-submodules https://github.com/kaiomatico/net.sourceforge.torcs.git
 cd net.sourceforge.torcs
 flatpak-builder build-dir net.sourceforge.torcs.json --force-clean
 flatpak-builder --user --install build-dir net.sourceforge.torcs.json --force-clean
 flatpak run net.sourceforge.torcs
+```
+
+# Uninstall instructions
+```
+flatpak uninstall --delete-data net.sourceforge.torcs
 ```
 
 # Notes
