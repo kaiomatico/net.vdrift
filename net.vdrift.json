@@ -1,0 +1,60 @@
+{
+    "app-id": "net.sourceforge.torcs",
+    "runtime": "org.freedesktop.Platform",
+    "runtime-version": "20.08",
+    "sdk": "org.freedesktop.Sdk",
+    "finish-args": [
+        "--device=all",
+        "--filesystem=host:ro",
+        "--socket=pulseaudio",
+        "--socket=x11",
+        "--share=network"
+    ],
+    "rename-appdata-file": "vdrift.appdata.xml",
+    "rename-desktop-file": "vdrift.desktop",
+    "rename-icon": "vdrift",
+    "command": "vdrift",
+    "modules": [
+        "shared-modules/SDL/SDL-1.2.15.json",
+        {
+            "name": "scons",
+            "buildsystem": "simple",
+            "build-commands": [
+                "python3 setup.py install"
+              ],
+            "sources": [
+                {
+                  "type": "archive",
+                  "url": "http://download.sourceforge.net/scons/scons-3.0.1.tar.gz",
+                  "sha256": "24475e38d39c19683bc88054524df018fe6949d70fbd4c69e298d39a0269f173"
+                }
+            ]
+        },
+        {
+          "name": "vdrift-data",
+          "sources": [
+            {
+              "type": "svn",
+              "url": "https://svn.code.sf.net/p/vdrift/code/vdrift-data/",
+              "revision": "1439"
+            }
+        ]
+    },
+        {
+          "name": "vdrift",
+          "buildsystem": "simple",
+          "build-commands": [
+            "scons arch=a64 release=1 extbullet=1 prefix=/app/vdrift",
+            "scons install prefix=/app/vdrift"
+          ],
+          "sources": [
+            {
+              "type": "git",
+              "url": "https://github.com/VDrift/vdrift.git",
+              "commit": "5ae309f1048c863f4745cd50c8cd81f98340b1d4"
+            }
+          ]
+        }
+      ]
+    }
+    
