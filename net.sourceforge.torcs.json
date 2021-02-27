@@ -1,7 +1,7 @@
 {
     "app-id": "net.sourceforge.torcs",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "20.08",
     "sdk": "org.freedesktop.Sdk",
     "finish-args": [
         "--device=all",
@@ -22,7 +22,7 @@
     "rename-icon": "torcs",
     "command": "torcs",
     "modules": [
-        "shared-modules/glu/glu-9.0.0.json",
+        "shared-modules/glu/glu-9.json",
         {
             "name": "freeglut",
             "buildsystem": "cmake",
@@ -32,8 +32,11 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://downloads.sourceforge.net/project/freeglut/freeglut/3.0.0/freeglut-3.0.0.tar.gz",
-                    "sha256": "2a43be8515b01ea82bcfa17d29ae0d40bd128342f0930cd1f375f1ff999f76a2"
+                    "url": "https://downloads.sourceforge.net/freeglut/freeglut-3.2.1.tar.gz",
+                    "sha256": "d4000e02102acaf259998c870e25214739d1f16f67f99cb35e4f46841399da68"
+                },                {
+                    "type": "patch",
+                    "path": "freeglut-3.2.1-gcc10_fix-1.patch"
                 }
             ]
         },
@@ -105,6 +108,10 @@
                 {
                     "type": "patch",
                     "path": "torcs-glibc-default-source.patch"
+                },
+                {
+                    "type": "patch",
+                    "path": "torcs-gcc7-nullptr.patch"
                 },
                 {
                     "type": "file",
