@@ -9,9 +9,10 @@ This is a Flatpak for the Racing Sim VDRIFT
 flatpak install flathub org.freedesktop.Platform//20.08 org.freedesktop.Sdk//20.08
 git clone --recurse-submodules https://github.com/kaiomatico/net.vdrift.git
 cd net.vdrift
-flatpak-builder build-dir net.vdrift.json --force-clean
-flatpak-builder --user --install build-dir net.vdrift.json --force-clean
-flatpak run net.vdrift
+sudo apt install subversion
+flatpak-builder build-dir net.sourceforge.vdrift --force-clean
+flatpak-builder --user --install build-dir net.sourceforge.vdrift --force-clean
+flatpak run net.sourceforge.vdrift
 ```
 
 # Uninstall instructions

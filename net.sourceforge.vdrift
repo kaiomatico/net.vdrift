@@ -1,26 +1,25 @@
 {
-    "app-id": "net.sourceforge.torcs",
+    "app-id": "net.sourceforge.vdrift",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "20.08",
     "sdk": "org.freedesktop.Sdk",
     "finish-args": [
         "--device=all",
+        "--persist=.vdrift",
         "--filesystem=host:ro",
         "--socket=pulseaudio",
         "--socket=x11",
         "--share=network"
     ],
     "rename-appdata-file": "vdrift.appdata.xml",
-    "rename-desktop-file": "vdrift.desktop",
-    "rename-icon": "vdrift",
-    "command": "vdrift",
+    "command": "/app/vdrift/bin/vdrift",
     "modules": [
         "shared-modules/SDL/SDL-1.2.15.json",
         {
             "name": "scons",
             "buildsystem": "simple",
             "build-commands": [
-                "python3 setup.py install"
+                "python3 setup.py install --prefix=${FLATPAK_DEST}"
               ],
             "sources": [
                 {
@@ -31,19 +30,36 @@
             ]
         },
         {
-          "name": "vdrift-data",
+          "name": "bullet",
+          "buildsystem": "cmake",
           "sources": [
-            {
-              "type": "svn",
-              "url": "https://svn.code.sf.net/p/vdrift/code/vdrift-data/",
-              "revision": "1439"
-            }
-        ]
-    },
+              {
+                "type": "archive",
+                "url": "https://github.com/bulletphysics/bullet3/archive/3.08.tar.gz",
+                "sha256": "05826c104b842bcdd1339b86894cb44c84ac2525ac296689d34b38a14bbba0dd"
+              }
+          ]
+      },
+      {
+        "name": "vdrift-data",
+        "buildsystem": "simple",
+        "build-commands": [
+          "mkdir -p /app/vdrift-data",
+          "mv * /app/vdrift-data"
+        ],
+        "sources": [
+          {
+            "type": "svn",
+            "url": "https://svn.code.sf.net/p/vdrift/code/vdrift-data/",
+            "revision": "1439"
+          }
+      ]
+  },
         {
           "name": "vdrift",
           "buildsystem": "simple",
           "build-commands": [
+            "mv /app/vdrift-data /run/build/vdrift/data",
             "scons arch=a64 release=1 extbullet=1 prefix=/app/vdrift",
             "scons install prefix=/app/vdrift"
           ],
